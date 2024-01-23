@@ -1,13 +1,14 @@
 import Head from "next/head";
 import Link from "next/link";
 
-import { UserButton, SignInButton, SignIn, useUser, SignOutButton } from "@clerk/nextjs";
+import { SignInButton, SignIn, useUser } from "@clerk/nextjs";
 
 import { RouterOutputs, api } from "~/utils/api";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
+import { LoadingPage } from "~/components/loading";
 
 dayjs.extend(relativeTime)
 
@@ -59,7 +60,7 @@ export default function Home() {
 
   const { data, isLoading } = api.posts.getAll.useQuery();
 
-  if (!data || isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingPage />;
   
   if (!data) return <div>Something went wrong</div>;
 
