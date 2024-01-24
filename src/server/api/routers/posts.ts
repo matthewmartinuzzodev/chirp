@@ -54,8 +54,7 @@ export const postsRouter = createTRPCRouter({
 
       const post = await ctx.prisma.post.create({
         data: {
-          name: "",
-          authorId,
+          authorId: authorId,
           content: input.content,
         },
       });

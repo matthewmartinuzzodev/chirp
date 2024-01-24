@@ -45,7 +45,6 @@ type CreateContextOptions = Record<string, never>;
 export const createTRPCContext = (opts: CreateNextContextOptions) => {
   const {req} = opts;
   const sesh = getAuth(req);
-
   const userId = sesh.userId;
 
   return {
@@ -105,7 +104,7 @@ const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
       code: "UNAUTHORIZED",
     });
   }
-
+  
   return next({
     ctx: {
       userId: ctx.userId,
