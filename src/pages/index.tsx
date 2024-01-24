@@ -9,11 +9,15 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
 import { LoadingPage } from "~/components/loading";
 import { NextPage } from "next/types";
+import { useState } from "react";
 
 dayjs.extend(relativeTime)
 
 const CreatePostWizard = () => {
   const {user} = useUser();
+
+  const [input, setInput] = useState<string>("");
+  const {mutate} = api.posts.create.useMutation();
 
   console.log(user)
 
@@ -25,7 +29,19 @@ const CreatePostWizard = () => {
         src={user.imageUrl} 
         alt="Profile image" 
         className="rounded-full w-14 h-14" />
-      <input placeholder="Type some emojis!" className="bg-transparent outline-none grow"/>
+      <input 
+        placeholder="Type some emojis!" 
+        className="bg-transparent outline-none grow"
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}/>
+      <button onClick={() => mutate(
+        { 
+          content: input
+        }
+      )}> 
+        Post
+      </button>
     </div>
   );
 };
