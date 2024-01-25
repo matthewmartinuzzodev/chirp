@@ -12,6 +12,7 @@ import { NextPage } from "next/types";
 import { useState } from "react";
 
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 dayjs.extend(relativeTime)
 
@@ -92,10 +93,14 @@ const PostView = (props : PostWithUser) => {
         height={56}/>
       <div className="flex flex-col">
         <div className="flex font-bold text-slate-200">
-          <span>{`@${author.username}`}</span>&nbsp;
+          <Link href={`/@${author.username}`}>
+            <span>{`@${author.username}`}</span>
+          </Link>&nbsp;
+          <Link href={`/post/${post.id}`}>
           <span className="font-thin">
               {`· ${dayjs(post.createdAt).fromNow()}`}
           </span>
+          </Link>
         </div>
         <span className="text-2xl">{post.content}</span> 
       </div>
