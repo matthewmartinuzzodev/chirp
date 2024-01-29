@@ -2,7 +2,6 @@ import { SignInButton, useUser } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
 
-
 import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import { NextPage } from "next/types";
 import { useState } from "react";
@@ -78,12 +77,9 @@ const CreatePostWizard = () => {
 
 
 const Feed = () => {
-  const { data , isFetching : postsLoading } = api.posts.getAll.useQuery(undefined, {
-    refetchOnWindowFocus : false
-  });
+  const { data , isFetching : postsLoading } = api.posts.getAll.useQuery();
 
   if (postsLoading) return <LoadingPage />;
-
   if (!data) return <div>Something went wrong</div>;
 
   return (
